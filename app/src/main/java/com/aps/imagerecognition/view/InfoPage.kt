@@ -2,7 +2,6 @@ package com.aps.imagerecognition.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -34,7 +33,7 @@ class InfoPage : AppCompatActivity() {
         val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener{
             log("Button click")
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, CameraPage::class.java)
             startActivity(intent)
             log("finish InfoPage")
             finish()

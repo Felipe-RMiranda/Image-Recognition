@@ -1,0 +1,17 @@
+<!-- res/drawable/bottom_border.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fundo transparente -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#212121"/>
+        </shape>
+    </item>
+
+    <!-- Borda inferior -->
+    <item android:gravity="bottom">
+        <shape android:shape="rectangle">
+            <size android:height="1dp"/>
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
+</layer-list>

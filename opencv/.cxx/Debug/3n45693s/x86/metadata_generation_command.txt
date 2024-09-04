@@ -1,0 +1,19 @@
+                        -H/home/anonymous/dev/workspace/Image-Recognition/opencv/libcxx_helper
+-DCMAKE_SYSTEM_NAME=Android
+-DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+-DCMAKE_SYSTEM_VERSION=21
+-DANDROID_PLATFORM=android-21
+-DANDROID_ABI=x86
+-DCMAKE_ANDROID_ARCH_ABI=x86
+-DANDROID_NDK=/home/anonymous/Android/Sdk/ndk/26.1.10909125
+-DCMAKE_ANDROID_NDK=/home/anonymous/Android/Sdk/ndk/26.1.10909125
+-DCMAKE_TOOLCHAIN_FILE=/home/anonymous/Android/Sdk/ndk/26.1.10909125/build/cmake/android.toolchain.cmake
+-DCMAKE_MAKE_PROGRAM=/home/anonymous/Android/Sdk/cmake/3.22.1/bin/ninja
+-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/anonymous/dev/workspace/Image-Recognition/opencv/build/intermediates/cxx/Debug/3n45693s/obj/x86
+-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/anonymous/dev/workspace/Image-Recognition/opencv/build/intermediates/cxx/Debug/3n45693s/obj/x86
+-DCMAKE_BUILD_TYPE=Debug
+-B/home/anonymous/dev/workspace/Image-Recognition/opencv/.cxx/Debug/3n45693s/x86
+-GNinja
+-DANDROID_STL=c++_shared
+                        Build command args: []
+                        Version: 2
