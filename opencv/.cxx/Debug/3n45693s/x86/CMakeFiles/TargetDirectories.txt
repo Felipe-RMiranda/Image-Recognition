@@ -1,3 +1,0 @@
-/home/anonymous/dev/workspace/Image-Recognition/opencv/.cxx/Debug/3n45693s/x86/CMakeFiles/opencv_jni_shared.dir
-/home/anonymous/dev/workspace/Image-Recognition/opencv/.cxx/Debug/3n45693s/x86/CMakeFiles/edit_cache.dir
-/home/anonymous/dev/workspace/Image-Recognition/opencv/.cxx/Debug/3n45693s/x86/CMakeFiles/rebuild_cache.dir

@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/anonymous/dev/workspace/Image-Recognition/opencv/.cxx/Debug/3n45693s/x86",
-  "command": "/home/anonymous/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android21 --sysroot=/home/anonymous/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -mstackrealign -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles/opencv_jni_shared.dir/dummy.cpp.o -c /home/anonymous/dev/workspace/Image-Recognition/opencv/libcxx_helper/dummy.cpp",
-  "file": "/home/anonymous/dev/workspace/Image-Recognition/opencv/libcxx_helper/dummy.cpp"
-}
-]
