@@ -70,6 +70,11 @@ class CameraPage : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         camImg.handlePermissionsResult(requestCode, grantResults)
     }
+
+    override fun onResume(){
+        super.onResume()
+        camImg.resume()
+    }
     override fun onPause() {
         super.onPause()
         camImg.handleOnPause()
