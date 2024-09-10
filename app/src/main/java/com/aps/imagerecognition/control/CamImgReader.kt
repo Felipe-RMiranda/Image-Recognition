@@ -3,6 +3,7 @@ package com.aps.imagerecognition.control
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -22,8 +23,10 @@ import android.os.HandlerThread
 import android.provider.Settings
 import android.util.Log
 import android.util.Size
+import android.view.LayoutInflater
 import android.view.Surface
 import android.view.TextureView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aps.imagerecognition.R
@@ -366,7 +369,8 @@ class CamImgReader(private val context: Activity) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(context, Manifest.permission.CAMERA)){
                 ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.CAMERA), PERMISSION_CODE)
             } else {
-                dialog(::openSettings)
+                dialog("Permissão","A permissão de utilização da camêra do dispositivo\" +\n" +
+                        "                    \"é fundamental para o funcionament da aplicação!",::openSettings)
             }
         }
     }
@@ -382,24 +386,39 @@ class CamImgReader(private val context: Activity) {
         intent.data = uri
         context.startActivity(intent)
     }
-    private fun dialog(operation: () -> Unit){
+    private fun dialog(title:String, desc:String, operation: () -> Unit){
+
         log("Start Dialog")
-        val dialog = AlertDialog.Builder(context, R.style.DialogTheme)
-        dialog.setTitle("Permissão")
-        dialog.setMessage(
-            "A permissão de utilização da camêra do dispositivo" +
-                    "é fundamental para o funcionament da aplicação!"
-        )
-        dialog.setPositiveButton("Permitir"){v, _ ->
-            log("Requesting Permission")
-            operation()
-            v.dismiss()
-        }.setNegativeButton("Encerrar"){ _, _ ->
+
+        val view = context.layoutInflater.inflate(R.layout.pop_up, null)
+        val dialog = Dialog(context)
+        dialog.setContentView(view)
+
+        val pop_up_title:TextView = view.findViewById(R.id.title)
+
+        pop_up_title.setText(title)
+
+        val pop_up_desc:TextView = view.findViewById(R.id.desc1)
+
+        pop_up_desc.setText(desc)
+
+        val btnCancel:TextView = view.findViewById(R.id.btnCancel)
+
+        btnCancel.setOnClickListener{
             log("finish application")
             context.finish()
         }
+
+        val btnPermitir:TextView = view.findViewById(R.id.btnPermitir)
+
+        btnPermitir.setOnClickListener{
+            log("Requesting Permission")
+            operation()
+            dialog.dismiss()
+        }
+
         context.runOnUiThread{
-            dialog.create().show()
+            dialog.show()
         }
     }
     private fun log(s: String) {
@@ -431,7 +450,8 @@ class CamImgReader(private val context: Activity) {
             startCamera()
         } else {
             log("Permission: ${checkPermissions()}")
-            dialog(::getPermission)
+            dialog("Permissão","A permissão de utilização da camêra do dispositivo\" +\n" +
+                    "                    \"é fundamental para o funcionament da aplicação!",::getPermission)
         }
     }
     fun handleOnPause() {

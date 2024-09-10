@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bkg"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_margin="15dp"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Permissão para Acesso à Câmera"
+        android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/desc1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Para utilizar todas as funcionalidades deste aplicativo, é necessário conceder permissão para acessar a câmera. Esta permissão permite capturar fotos, e a realização de outras ações essenciais para melhorar sua experiência.
+Toque em Permitir para continuar."
+            android:textColor="@color/white"
+            android:padding="15dp"
+            android:textAlignment="viewStart"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btnCancel"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="Encerrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bkg"
+                />
+
+            <TextView
+                android:id="@+id/btnPermitir"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="Permitir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bkg"
+                />
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
