@@ -2,6 +2,7 @@ package com.aps.imagerecognition.view
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -34,6 +35,7 @@ class CameraPage : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         camImg = CamImgReader(this)
 
         gry = findViewById(R.id.gry)
@@ -54,7 +56,12 @@ class CameraPage : AppCompatActivity() {
 
         filterMap.forEach { (button, filter) ->
             button.setOnClickListener {
-                camImg.setFilter(filter) }
+
+                camImg.setFilter(filter)
+                selectedButton?.setImageResource(R.drawable.camera)
+                button.setImageResource(R.drawable.set_filter)
+                selectedButton = button
+            }
         }
     }
 
@@ -87,6 +94,7 @@ class CameraPage : AppCompatActivity() {
     private val TAG = "Log Image Recognition"
     private lateinit var sharPref: SharedPreferences
     private lateinit var camImg: CamImgReader
+    private var selectedButton: ImageView? = null
     private lateinit var gry: ImageView
     private lateinit var hel: ImageView
     private lateinit var hsv: ImageView
