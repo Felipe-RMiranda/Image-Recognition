@@ -26,6 +26,7 @@ import android.util.Size
 import android.view.LayoutInflater
 import android.view.Surface
 import android.view.TextureView
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -369,8 +370,8 @@ class CamImgReader(private val context: Activity) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(context, Manifest.permission.CAMERA)){
                 ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.CAMERA), PERMISSION_CODE)
             } else {
-                dialog("Permissão","A permissão de utilização da camêra do dispositivo\" +\n" +
-                        "                    \"é fundamental para o funcionament da aplicação!",::openSettings)
+                dialog("Permissão para Acesso à Câmera","Para utilizar todas as funcionalidades deste aplicativo, é necessário conceder permissão para acessar a câmera. \n" +
+                        "Esta permissão permite capturar fotos, e a realização de outras ações essenciais para melhorar sua experiência.",::openSettings)
             }
         }
     }
@@ -391,8 +392,18 @@ class CamImgReader(private val context: Activity) {
         log("Start Dialog")
 
         val view = context.layoutInflater.inflate(R.layout.pop_up, null)
-        val dialog = Dialog(context)
+        val dialog = Dialog(context, R.style.TransparentRoundedLayout)
         dialog.setContentView(view)
+
+        //Parametros para a janela pop_up
+
+        val layoutParams = WindowManager.LayoutParams().apply {
+            copyFrom(dialog.window?.attributes)
+            width = WindowManager.LayoutParams.WRAP_CONTENT
+            height = WindowManager.LayoutParams.WRAP_CONTENT
+        }
+        dialog.window?.attributes = layoutParams
+
 
         val pop_up_title:TextView = view.findViewById(R.id.title)
 
