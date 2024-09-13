@@ -247,7 +247,6 @@ class CamImgReader(private val context: Activity) {
             HEL -> updatePreview(applyHistogramEqualization(mat))
             HSV -> updatePreview(convertRgbToHSV(mat))
             CED -> updatePreview(applyCannyEdgeDetection(mat))
-            BLF -> updatePreview(applyBilateralFilter(mat, 25, 145.0, 145.0))
             RGB -> updatePreview(mat)
             else -> updatePreview(mat)
         }
@@ -330,13 +329,6 @@ class CamImgReader(private val context: Activity) {
         return edgesMat
     }
 
-    //Filtro bilateral: suavização espacial e de cor preservando as bordas
-    private fun applyBilateralFilter(inputMat: Mat, d: Int, sigmaColor: Double, sigmaSpace: Double): Mat {
-        val outputMat = Mat()
-        Imgproc.bilateralFilter(inputMat, outputMat, d, sigmaColor, sigmaSpace)
-        return outputMat
-    }
-
 
     //PRinta os frames processados
     private fun updatePreview(mat: Mat) {
@@ -379,16 +371,8 @@ class CamImgReader(private val context: Activity) {
             startCamera()
         } else {
             log("Permission requested")
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    context,
-                    Manifest.permission.CAMERA
-                )
-            ) {
-                ActivityCompat.requestPermissions(
-                    context,
-                    arrayOf(Manifest.permission.CAMERA),
-                    PERMISSION_CODE
-                )
+            if (!ActivityCompat.shouldShowRequestPermissionRationale(context, Manifest.permission.CAMERA)) {
+                ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.CAMERA), PERMISSION_CODE)
             } else {
                 dialog("Permissão para Acesso à Câmera","Para utilizar todas as funcionalidades deste aplicativo, é necessário conceder permissão para acessar a câmera. \n" +
                         "Esta permissão permite capturar fotos, e a realização de outras ações essenciais para melhorar sua experiência.",::openSettings)

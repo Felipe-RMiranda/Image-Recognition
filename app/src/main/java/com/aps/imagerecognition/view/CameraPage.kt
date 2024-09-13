@@ -53,7 +53,6 @@ class CameraPage : AppCompatActivity() {
         hel = findViewById(R.id.hel)
         hsv = findViewById(R.id.hsv)
         ced = findViewById(R.id.ced)
-        blf = findViewById(R.id.blf)
         rgb = findViewById(R.id.rgb)
 
         val filterMap = mapOf(
@@ -61,7 +60,6 @@ class CameraPage : AppCompatActivity() {
             hel to HEL,
             hsv to HSV,
             ced to CED,
-            blf to BLF,
             rgb to RGB
         )
 
@@ -113,6 +111,5 @@ class CameraPage : AppCompatActivity() {
     private lateinit var hel: ImageView
     private lateinit var hsv: ImageView
     private lateinit var ced: ImageView
-    private lateinit var blf: ImageView
     private lateinit var rgb: ImageView
 }

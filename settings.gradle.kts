@@ -21,8 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Image-Recognition"
 include(":app")
-<<<<<<< HEAD
 include(":opencv")
-=======
-include (":opencv")
->>>>>>> origin/FelipeDev
