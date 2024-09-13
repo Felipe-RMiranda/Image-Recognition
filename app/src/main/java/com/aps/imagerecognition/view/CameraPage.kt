@@ -1,10 +1,13 @@
 package com.aps.imagerecognition.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.Surface
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -35,8 +38,16 @@ class CameraPage : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         camImg = CamImgReader(this)
+
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        when (windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_0 -> camImg.setOrientation(PORTRAIT)
+            Surface.ROTATION_90 -> camImg.setOrientation(LANDSCAPE)
+            Surface.ROTATION_180 -> camImg.setOrientation(PORTRAITDOWN)
+            Surface.ROTATION_270 -> camImg.setOrientation(LANDSCAPEREVERSE)
+            else -> camImg.setOrientation(PORTRAIT)
+        }
 
         gry = findViewById(R.id.gry)
         hel = findViewById(R.id.hel)
@@ -58,6 +69,9 @@ class CameraPage : AppCompatActivity() {
             button.setOnClickListener {
 
                 camImg.setFilter(filter)
+                if (button != rgb){
+                    rgb.setImageResource(R.drawable.camera)
+                }
                 selectedButton?.setImageResource(R.drawable.camera)
                 button.setImageResource(R.drawable.set_filter)
                 selectedButton = button

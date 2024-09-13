@@ -39,6 +39,7 @@ class CamImgReader(private val context: Activity) {
 
     private val TAG = "Log Image Recognition"
     private var tagFilter: EnumFilters? = null
+    private var tagOrientaion: EnumFilters? = null
     private val PERMISSION_CODE = 1030
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private val cameraPreview = context.findViewById<TextureView>(R.id.cameraPreview)
@@ -196,7 +197,15 @@ class CamImgReader(private val context: Activity) {
         val rotatedMAt = Mat()
         Core.rotate(rgbMat, rotatedMAt, Core.ROTATE_90_CLOCKWISE)
 
-        return rotatedMAt
+        val rotatedMAt180 = Mat()
+        Core.rotate(rgbMat, rotatedMAt180, Core.ROTATE_180)
+
+        return when (tagOrientaion){
+            PORTRAIT -> rotatedMAt
+            LANDSCAPE -> rgbMat
+            LANDSCAPEREVERSE -> rotatedMAt180
+            else -> rotatedMAt
+        }
     }
 
     //Cria a sessão de captura da camera
@@ -318,12 +327,7 @@ class CamImgReader(private val context: Activity) {
     }
 
     //Filtro bilateral: suavização espacial e de cor preservando as bordas
-    private fun applyBilateralFilter(
-        inputMat: Mat,
-        d: Int,
-        sigmaColor: Double,
-        sigmaSpace: Double
-    ): Mat {
+    private fun applyBilateralFilter(inputMat: Mat, d: Int, sigmaColor: Double, sigmaSpace: Double): Mat {
         val outputMat = Mat()
         Imgproc.bilateralFilter(inputMat, outputMat, d, sigmaColor, sigmaSpace)
         return outputMat
@@ -334,10 +338,15 @@ class CamImgReader(private val context: Activity) {
     private fun updatePreview(mat: Mat) {
         val bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(mat, bitmap)
+
+        //Calcula a diferença de tamanho do Bitmap e TextureView para centralizlos
+        val xOffset = (imageSize!!.width - bitmap.width) / 2f
+        val yOffset = (imageSize!!.height - bitmap.height) / 2f
+
         // Atualiza o SurfaceTexture com a nova imagem
         cameraPreview.lockCanvas()?.let {
             // Desenha o Bitmap no Canvas do TextureView
-            it.drawBitmap(bitmap, 0f, 0f, null)
+            it.drawBitmap(bitmap, xOffset, yOffset, null)
             cameraPreview.unlockCanvasAndPost(it)
         }
     }
@@ -425,14 +434,13 @@ class CamImgReader(private val context: Activity) {
         tagFilter = e
     }
 
+    fun setOrientation(e: EnumFilters){
+        tagOrientaion = e
+    }
+
     fun resume() {
-        log("Start CamImageReader")
-        threadBkg = HandlerThread("CameraBkg").apply { start() }
-        handlerBkg = Handler(threadBkg.looper)
-        getOptimalSize()
-        initOpenCV()
+        init()
         if (cameraPreview.isAvailable && !imageReader.surface.isValid) {
-            // O SurfaceTexture já está disponível
             log("Camera Preview Started")
             val surfaceTexture: SurfaceTexture? = cameraPreview.surfaceTexture
             surfaceTexture!!.setDefaultBufferSize(imageSize!!.width, imageSize!!.height)
