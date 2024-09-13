@@ -1,9 +1,13 @@
 package com.aps.imagerecognition.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.Surface
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +40,15 @@ class CameraPage : AppCompatActivity() {
         }
         camImg = CamImgReader(this)
 
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        when (windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_0 -> camImg.setOrientation(PORTRAIT)
+            Surface.ROTATION_90 -> camImg.setOrientation(LANDSCAPE)
+            Surface.ROTATION_180 -> camImg.setOrientation(PORTRAITDOWN)
+            Surface.ROTATION_270 -> camImg.setOrientation(LANDSCAPEREVERSE)
+            else -> camImg.setOrientation(PORTRAIT)
+        }
+
         gry = findViewById(R.id.gry)
         hel = findViewById(R.id.hel)
         hsv = findViewById(R.id.hsv)
@@ -54,7 +67,15 @@ class CameraPage : AppCompatActivity() {
 
         filterMap.forEach { (button, filter) ->
             button.setOnClickListener {
-                camImg.setFilter(filter) }
+
+                camImg.setFilter(filter)
+                if (button != rgb){
+                    rgb.setImageResource(R.drawable.camera)
+                }
+                selectedButton?.setImageResource(R.drawable.camera)
+                button.setImageResource(R.drawable.set_filter)
+                selectedButton = button
+            }
         }
     }
 
@@ -87,6 +108,7 @@ class CameraPage : AppCompatActivity() {
     private val TAG = "Log Image Recognition"
     private lateinit var sharPref: SharedPreferences
     private lateinit var camImg: CamImgReader
+    private var selectedButton: ImageView? = null
     private lateinit var gry: ImageView
     private lateinit var hel: ImageView
     private lateinit var hsv: ImageView

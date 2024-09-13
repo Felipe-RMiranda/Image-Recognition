@@ -1,50 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".view.InfoPage">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:src="@drawable/inf_bkg"/>
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/imgback" />
 
-        <LinearLayout
-            android:layout_gravity="center"
-            android:layout_margin="35dp"
-            android:padding="15dp"
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/defout_bkg"
-            android:gravity="center">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/roboto_black"
+            android:gravity="center"
+            android:padding="15dp"
+            android:shadowColor="#030357"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="4"
+            android:text="AquaVision IA"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="This project aims to identify electronic waste in rivers and seas with the aim of cataloging their weight in order of priority.
-"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/btnStart"
-                android:layout_margin="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Iniciar"/>
-
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:backgroundTint="#030357"
+            android:fontFamily="@font/roboto_black"
+            android:text="Iniciar"
+            android:textColor="#FDFDFD" />
         </LinearLayout>
 
     </FrameLayout>
-
 </LinearLayout>

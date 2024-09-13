@@ -6,5 +6,9 @@ enum class EnumFilters {
     HSV,
     CED,
     BLF,
-    RGB
+    RGB,
+    PORTRAIT,
+    LANDSCAPE,
+    PORTRAITDOWN,
+    LANDSCAPEREVERSE
 }

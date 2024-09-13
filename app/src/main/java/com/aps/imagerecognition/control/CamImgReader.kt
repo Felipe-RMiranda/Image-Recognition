@@ -43,14 +43,15 @@ class CamImgReader(private val context: Activity) {
 
     private val TAG = "Log Image Recognition"
     private var tagFilter: EnumFilters? = null
+    private var tagOrientaion: EnumFilters? = null
     private val PERMISSION_CODE = 1030
     private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
     private val cameraPreview = context.findViewById<TextureView>(R.id.cameraPreview)
     private lateinit var surface: Surface
     private lateinit var cameraId: String
-    private var imageSize :Size? = null
+    private var imageSize: Size? = null
     private var cameraDevice: CameraDevice? = null
-    private var captureSession : CameraCaptureSession? = null
+    private var captureSession: CameraCaptureSession? = null
     private lateinit var imageReader: ImageReader
     private val cameraManager =
         context.getSystemService(Context.CAMERA_SERVICE) as CameraManager
@@ -61,66 +62,58 @@ class CamImgReader(private val context: Activity) {
         init()
     }
 
-    private fun init(){
+    private fun init() {
         log("Start CamImageReader")
         threadBkg = HandlerThread("CameraBkg").apply { start() }
         handlerBkg = Handler(threadBkg.looper)
-        imageSize = getOptimalSize()
+        getOptimalSize()
         initOpenCV()
         startTextureView()
     }
+
     //Define a melhor tamanho e proporçãoção com base no dispositivo
-    private fun getOptimalSize(): Size {
+    private fun getOptimalSize() {
         // Método para pegar o ID da câmera traseira
         cameraId = cameraManager.cameraIdList.first { id ->
             val characteristics = cameraManager.getCameraCharacteristics(id)
             val facing = characteristics.get(CameraCharacteristics.LENS_FACING)
             facing == CameraCharacteristics.LENS_FACING_BACK
         }
-        val characteristics = cameraManager.getCameraCharacteristics(cameraId)
-        val streamConfigurationMap = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)
-        val sizes = streamConfigurationMap?.getOutputSizes(SurfaceTexture::class.java)
-
-        // Obtém o tamanho da tela
+        // Defina o tamanho do buffer de acordo com a proporção desejada (9:16)
         val displayMetrics = context.resources.displayMetrics
         val screenWidth = displayMetrics.widthPixels
         val screenHeight = displayMetrics.heightPixels
 
-        // Escolhe o tamanho mais próximo
-        return sizes?.minByOrNull { size ->
-            val diffWidth = Math.abs(size.width - screenWidth)
-            val diffHeight = Math.abs(size.height - screenHeight)
-            diffWidth + diffHeight
-        } ?: Size(1080, 1920) // tamanho padrão caso não encontre
+        imageSize = Size(screenWidth, screenHeight)
     }
 
     //Define os parametros de retorno da imagem
-    private fun startTextureView(){
+    private fun startTextureView() {
         log("Start Texture View")
         cameraPreview.surfaceTextureListener =
             object : TextureView.SurfaceTextureListener {
 
                 override fun onSurfaceTextureAvailable(surfaceTexture: SurfaceTexture, p1: Int, p2: Int) {
                     //cria um surface para o SurfaceTexture
-                    log("TextureView Width: ${cameraPreview.width}, Height: ${cameraPreview.height}")
-                    log("SurfaceTexture Width: ${p1}, Height: ${p2}")
-//                    surfaceTexture.setDefaultBufferSize(imageSize!!.width, imageSize!!.height)
-                    surfaceTexture.setDefaultBufferSize(p1, p2)
+                    surfaceTexture.setDefaultBufferSize(imageSize!!.width, imageSize!!.height)
                     surface = Surface(surfaceTexture)
+
+                    log("TextureView Width: ${cameraPreview.width}, Height: ${cameraPreview.height}")
+                    log("SurfaceTexture Width: ${imageSize!!.width}, Height: ${imageSize!!.height}")
                     log("Camera Preview Started")
                     getPermission()
                 }
                 override fun onSurfaceTextureSizeChanged(surfaceTexture: SurfaceTexture, p1: Int, p2: Int) {
-                    surfaceTexture.setDefaultBufferSize(p1, p2)
+                    surfaceTexture.setDefaultBufferSize(imageSize!!.width, imageSize!!.height)
                     surface = Surface(surfaceTexture)
                     log("SurfaceTexture Size Changed: Width: $p1, Height: $p2")
+                    log("TextureView Width: ${cameraPreview.width}, Height: ${cameraPreview.height}")
                 }
                 override fun onSurfaceTextureDestroyed(surfaceTexture: SurfaceTexture): Boolean {
                     closeCamera()
                     return true
                 }
                 override fun onSurfaceTextureUpdated(surfaceTexture: SurfaceTexture) {}
-
             }
     }
 
@@ -131,7 +124,8 @@ class CamImgReader(private val context: Activity) {
         //Configura o Imagerender para capturar os frames da câmera
         log("Setup Image Render")
         imageReader = ImageReader.newInstance(
-            imageSize!!.width, imageSize!!.height,  ImageFormat.YUV_420_888, 2)
+            imageSize!!.width, imageSize!!.height, ImageFormat.YUV_420_888, 2
+        )
         imageReader.setOnImageAvailableListener({ reader ->
             val img = reader.acquireLatestImage()
             if (img != null) {
@@ -143,10 +137,12 @@ class CamImgReader(private val context: Activity) {
 
         // Abre a câmera
         try {
-            if (ActivityCompat.checkSelfPermission(context,Manifest.permission.CAMERA
-                ) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    context, Manifest.permission.CAMERA
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
 
-                cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback(){
+                cameraManager.openCamera(cameraId, object : CameraDevice.StateCallback() {
 
                     // Callback quando a câmera é aberta
                     override fun onOpened(camera: CameraDevice) {
@@ -154,11 +150,13 @@ class CamImgReader(private val context: Activity) {
                         cameraDevice = camera
                         previewSession()
                     }
+
                     override fun onDisconnected(camera: CameraDevice) {
                         log("Camera Disconnected")
                         cameraDevice?.close()
                         cameraDevice = null
                     }
+
                     override fun onError(camera: CameraDevice, p1: Int) {
                         log("Camera Error")
                         cameraDevice?.close()
@@ -203,7 +201,15 @@ class CamImgReader(private val context: Activity) {
         val rotatedMAt = Mat()
         Core.rotate(rgbMat, rotatedMAt, Core.ROTATE_90_CLOCKWISE)
 
-        return rotatedMAt
+        val rotatedMAt180 = Mat()
+        Core.rotate(rgbMat, rotatedMAt180, Core.ROTATE_180)
+
+        return when (tagOrientaion){
+            PORTRAIT -> rotatedMAt
+            LANDSCAPE -> rgbMat
+            LANDSCAPEREVERSE -> rotatedMAt180
+            else -> rotatedMAt
+        }
     }
 
     //Cria a sessão de captura da camera
@@ -214,7 +220,8 @@ class CamImgReader(private val context: Activity) {
             cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
         captureRequestBuilder?.addTarget(imageReader.surface)
         log("Creating Capture Session")
-        cameraDevice?.createCaptureSession(listOf(imageReader.surface),
+        cameraDevice?.createCaptureSession(
+            listOf(imageReader.surface),
             object : CameraCaptureSession.StateCallback() {
 
                 override fun onConfigured(session: CameraCaptureSession) {
@@ -233,9 +240,9 @@ class CamImgReader(private val context: Activity) {
     }
 
     //processamentos de filtros
-    private fun processFrame(mat: Mat){
+    private fun processFrame(mat: Mat) {
 
-        when (tagFilter){
+        when (tagFilter) {
             GRY -> updatePreview(convertToGray(mat))
             HEL -> updatePreview(applyHistogramEqualization(mat))
             HSV -> updatePreview(convertRgbToHSV(mat))
@@ -335,10 +342,15 @@ class CamImgReader(private val context: Activity) {
     private fun updatePreview(mat: Mat) {
         val bitmap = Bitmap.createBitmap(mat.cols(), mat.rows(), Bitmap.Config.ARGB_8888)
         Utils.matToBitmap(mat, bitmap)
+
+        //Calcula a diferença de tamanho do Bitmap e TextureView para centralizlos
+        val xOffset = (imageSize!!.width - bitmap.width) / 2f
+        val yOffset = (imageSize!!.height - bitmap.height) / 2f
+
         // Atualiza o SurfaceTexture com a nova imagem
         cameraPreview.lockCanvas()?.let {
             // Desenha o Bitmap no Canvas do TextureView
-            it.drawBitmap(bitmap, 0f, 0f, null)
+            it.drawBitmap(bitmap, xOffset, yOffset, null)
             cameraPreview.unlockCanvasAndPost(it)
         }
     }
@@ -354,7 +366,7 @@ class CamImgReader(private val context: Activity) {
     }
 
     private fun initOpenCV() {
-        if (OpenCVLoader.initLocal()){
+        if (OpenCVLoader.initLocal()) {
             log("OpenCV Stancied")
         } else {
             log("OpenCV Fail")
@@ -367,8 +379,16 @@ class CamImgReader(private val context: Activity) {
             startCamera()
         } else {
             log("Permission requested")
-            if (ActivityCompat.shouldShowRequestPermissionRationale(context, Manifest.permission.CAMERA)){
-                ActivityCompat.requestPermissions(context, arrayOf(Manifest.permission.CAMERA), PERMISSION_CODE)
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    context,
+                    Manifest.permission.CAMERA
+                )
+            ) {
+                ActivityCompat.requestPermissions(
+                    context,
+                    arrayOf(Manifest.permission.CAMERA),
+                    PERMISSION_CODE
+                )
             } else {
                 dialog("Permissão para Acesso à Câmera","Para utilizar todas as funcionalidades deste aplicativo, é necessário conceder permissão para acessar a câmera. \n" +
                         "Esta permissão permite capturar fotos, e a realização de outras ações essenciais para melhorar sua experiência.",::openSettings)
@@ -379,14 +399,17 @@ class CamImgReader(private val context: Activity) {
     private fun checkPermissions() = REQUIRED_PERMISSIONS.all {
         log("Check Permissions")
         ContextCompat.checkSelfPermission(
-            context, it) == PackageManager.PERMISSION_GRANTED
+            context, it
+        ) == PackageManager.PERMISSION_GRANTED
     }
+
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", context.packageName, null)
         intent.data = uri
         context.startActivity(intent)
     }
+
     private fun dialog(title:String, desc:String, operation: () -> Unit){
 
         log("Start Dialog")
@@ -432,21 +455,22 @@ class CamImgReader(private val context: Activity) {
             dialog.show()
         }
     }
+
     private fun log(s: String) {
         Log.d(TAG, s)
     }
 
-    fun setFilter(e: EnumFilters){
+    fun setFilter(e: EnumFilters) {
         tagFilter = e
     }
-    fun resume(){
-        log("Start CamImageReader")
-        threadBkg = HandlerThread("CameraBkg").apply { start() }
-        handlerBkg = Handler(threadBkg.looper)
-        imageSize = getOptimalSize()
-        initOpenCV()
+
+    fun setOrientation(e: EnumFilters){
+        tagOrientaion = e
+    }
+
+    fun resume() {
+        init()
         if (cameraPreview.isAvailable && !imageReader.surface.isValid) {
-            // O SurfaceTexture já está disponível
             log("Camera Preview Started")
             val surfaceTexture: SurfaceTexture? = cameraPreview.surfaceTexture
             surfaceTexture!!.setDefaultBufferSize(imageSize!!.width, imageSize!!.height)
@@ -456,6 +480,7 @@ class CamImgReader(private val context: Activity) {
             getPermission()
         }
     }
+
     fun handlePermissionsResult(requestCode: Int, grantResults: IntArray) {
         if (requestCode == PERMISSION_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             startCamera()
@@ -465,6 +490,7 @@ class CamImgReader(private val context: Activity) {
                     "                    \"é fundamental para o funcionament da aplicação!",::getPermission)
         }
     }
+
     fun handleOnPause() {
         if (captureSession != null) {
             closeCamera()
