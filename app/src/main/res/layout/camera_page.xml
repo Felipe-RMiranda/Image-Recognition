@@ -10,50 +10,91 @@
     android:layout_height="match_parent"
     tools:context=".view.CameraPage">
 
-    <LinearLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:background="@drawable/topbar_bkg"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/btnMenu"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/btn_menu"/>
-
-    </LinearLayout>
     <FrameLayout
+        android:id="@+id/cont"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <SurfaceView
-            android:id="@+id/cameraView"
+        <TextureView
+            android:id="@+id/cameraPreview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="visible"/>
 
 
         <LinearLayout
             android:id="@+id/bottomBar"
-            android:layout_gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+
             android:padding="15dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/cameraClick"
+                android:id="@+id/gry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
                 android:src="@drawable/camera"/>
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="GRY"/>
 
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/hel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="HEL"/>
 
-</LinearLayout>
+
+            <ImageView
+                android:id="@+id/hsv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="HSV"/>
+
+            <ImageView
+                android:id="@+id/ced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="CED"/>
+
+            <ImageView
+                android:id="@+id/blf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="BLF"/>
