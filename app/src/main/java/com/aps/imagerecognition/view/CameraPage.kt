@@ -1,20 +1,21 @@
 package com.aps.imagerecognition.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
+import android.view.Surface
+import android.view.WindowManager
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.aps.imagerecognition.R
-import com.aps.imagerecognition.control.ApiCamera2
-import com.aps.imagerecognition.control.SurfaceView
-import com.aps.imagerecognition.control.UtilsCamera
-import org.opencv.android.JavaCameraView
+import com.aps.imagerecognition.control.EnumFilters.*
+import com.aps.imagerecognition.control.CamImgReader
 
 class CameraPage : AppCompatActivity() {
 
@@ -37,16 +38,44 @@ class CameraPage : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        camImg = CamImgReader(this)
 
-//        utilsCamera = UtilsCamera(this)
-//        surfaceView = SurfaceView(this)
-        apiCamera2 = ApiCamera2(this)
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        when (windowManager.defaultDisplay.rotation) {
+            Surface.ROTATION_0 -> camImg.setOrientation(PORTRAIT)
+            Surface.ROTATION_90 -> camImg.setOrientation(LANDSCAPE)
+            Surface.ROTATION_180 -> camImg.setOrientation(PORTRAITDOWN)
+            Surface.ROTATION_270 -> camImg.setOrientation(LANDSCAPEREVERSE)
+            else -> camImg.setOrientation(PORTRAIT)
+        }
 
-        btnMenu = findViewById(R.id.btnMenu)
-        btnClick = findViewById(R.id.cameraClick)
-        btnClick.setOnClickListener{
-            Toast.makeText(this, "Filtros desabilitados", Toast.LENGTH_LONG).show()
-//            utilsCamera.enableFilter()
+        gry = findViewById(R.id.gry)
+        hel = findViewById(R.id.hel)
+        hsv = findViewById(R.id.hsv)
+        ced = findViewById(R.id.ced)
+        blf = findViewById(R.id.blf)
+        rgb = findViewById(R.id.rgb)
+
+        val filterMap = mapOf(
+            gry to GRY,
+            hel to HEL,
+            hsv to HSV,
+            ced to CED,
+            blf to BLF,
+            rgb to RGB
+        )
+
+        filterMap.forEach { (button, filter) ->
+            button.setOnClickListener {
+
+                camImg.setFilter(filter)
+                if (button != rgb){
+                    rgb.setImageResource(R.drawable.camera)
+                }
+                selectedButton?.setImageResource(R.drawable.camera)
+                button.setImageResource(R.drawable.set_filter)
+                selectedButton = button
+            }
         }
     }
 
@@ -54,38 +83,36 @@ class CameraPage : AppCompatActivity() {
         log("sharPref: ${sharPref.getBoolean("intro_show", false)}")
         return sharPref.getBoolean("intro_show", false)
     }
-
     private fun log(s: String) {
         Log.d(TAG, s)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        utilsCamera.handlePermissionsResult(requestCode, grantResults)
-//        surfaceView.handlePermissionsResult(requestCode, grantResults)
-        apiCamera2.handlePermissionsResult(requestCode, grantResults)
+        camImg.handlePermissionsResult(requestCode, grantResults)
     }
 
-    override fun onResume() {
+    override fun onResume(){
         super.onResume()
-//        surfaceView.handleOnResume()
+        camImg.resume()
     }
     override fun onPause() {
         super.onPause()
-        utilsCamera.handleOnPause()
-//        surfaceView.handleOnPause()
-//        apiCamera2.handleOnPause()
+        camImg.handleOnPause()
     }
     override fun onDestroy() {
         super.onDestroy()
-//        surfaceView.handleOnPause()
+        camImg.handleOnPause()
     }
 
     private val TAG = "Log Image Recognition"
     private lateinit var sharPref: SharedPreferences
-    private lateinit var utilsCamera: UtilsCamera
-    private lateinit var surfaceView: SurfaceView
-    private lateinit var apiCamera2: ApiCamera2
-    private lateinit var btnMenu: ImageView
-    private lateinit var btnClick: ImageView
+    private lateinit var camImg: CamImgReader
+    private var selectedButton: ImageView? = null
+    private lateinit var gry: ImageView
+    private lateinit var hel: ImageView
+    private lateinit var hsv: ImageView
+    private lateinit var ced: ImageView
+    private lateinit var blf: ImageView
+    private lateinit var rgb: ImageView
 }
