@@ -18,6 +18,7 @@ class ImagemGaleria() : Fragment() {
 
         val fragment_imagem_galeria = inflater.inflate(R.layout.fragment_imagem_galeria, container, false)
 
+        val btnCancel: TextView = fragment_imagem_galeria.findViewById(R.id.btnCancel2)
         val imageViews = listOf<ImageView>(
             fragment_imagem_galeria.findViewById(R.id.imageView1),
             fragment_imagem_galeria.findViewById(R.id.imageView2),
@@ -35,7 +36,6 @@ class ImagemGaleria() : Fragment() {
             }
         }
 
-        val btnCancel: TextView = fragment_imagem_galeria.findViewById(R.id.btnCancel2)
         btnCancel.setOnClickListener {
             activity?.finish()
         }

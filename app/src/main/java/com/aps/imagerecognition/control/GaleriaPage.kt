@@ -23,10 +23,7 @@ class GaleriaPage : AppCompatActivity() {
         val fragment_manager = supportFragmentManager
         val fragment_transation = fragment_manager.beginTransaction()
 
-
         fragment_transation.add(R.id.main, galeria_page_fragment).commit()
-
-
-        }
+    }
 }
 

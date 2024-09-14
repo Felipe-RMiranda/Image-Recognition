@@ -105,8 +105,8 @@ class StaticProcessing(private val img:ImageView, private val preview:ImageView)
 
         // Aplicando o algoritmo Canny
         val edgesMat = Mat()
-        val lowerThreshold = 40.0 // Limite inferior (ajustável)
-        val upperThreshold = 80.0 // Limite superior (ajustável)
+        val lowerThreshold = 150.0 // Limite inferior (ajustável)
+        val upperThreshold = 500.0 // Limite superior (ajustável)
         Imgproc.Canny(blurredMat, edgesMat, lowerThreshold, upperThreshold)
 
         return edgesMat
@@ -125,11 +125,7 @@ class StaticProcessing(private val img:ImageView, private val preview:ImageView)
         val mat = Mat()
         Utils.bitmapToMat(bitmap, mat)
 
-        //Convert para RGB
-        val rgb = Mat()
-        Imgproc.cvtColor(mat, rgb, Imgproc.COLOR_BGR2RGB)
-
-        return rgb
+        return mat
     }
 
     //PRinta os frames processados
