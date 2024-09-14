@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.aps.imagerecognition.R
-import kotlinx.coroutines.selects.select
 import android.widget.Toast
 
 
-class ImagemGaleria(private val context:Activity) : Fragment() {
+class ImagemGaleria() : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,31 +31,25 @@ class ImagemGaleria(private val context:Activity) : Fragment() {
 
         imageViews.forEach { imageView ->
             imageView.setOnClickListener {
-                selectImage(imageView)
+                imgProcessing(imageView)
             }
         }
 
         val btnCancel: TextView = fragment_imagem_galeria.findViewById(R.id.btnCancel2)
         btnCancel.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            activity?.finish()
         }
 
         return fragment_imagem_galeria
     }
 
-    private fun selectImage(imageView: ImageView) {
+    private fun imgProcessing(imageView: ImageView) {
 
-        var selectedImageView: ImageView? = null
+        val imgProcess = ImgProcess(imageView)
 
-        selectedImageView?.setBackgroundResource(0)
-
-        selectedImageView = imageView
-        imageView.setBackgroundResource(R.drawable.btn_bkg)
-
-        Toast.makeText(context, "Imagem selecionada", Toast.LENGTH_SHORT).show()
-
-        requireActivity().supportFragmentManager.popBackStack()
-
+        val fragment = parentFragmentManager
+        val transaction = fragment.beginTransaction()
+        transaction.replace(R.id.main, imgProcess).commit()
     }
 }
 

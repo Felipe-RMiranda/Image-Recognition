@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.aps.imagerecognition.R
 import com.aps.imagerecognition.control.EnumFilters.*
 import com.aps.imagerecognition.control.CamImgReader
+import com.aps.imagerecognition.control.GaleriaPage
 
 class CameraPage : AppCompatActivity() {
 
@@ -54,25 +55,32 @@ class CameraPage : AppCompatActivity() {
         hsv = findViewById(R.id.hsv)
         ced = findViewById(R.id.ced)
         rgb = findViewById(R.id.rgb)
+        galeria = findViewById(R.id.galeria)
 
         val filterMap = mapOf(
             gry to GRY,
             hel to HEL,
             hsv to HSV,
             ced to CED,
-            rgb to RGB
+            rgb to RGB,
+            galeria to null
         )
 
         filterMap.forEach { (button, filter) ->
             button.setOnClickListener {
 
-                camImg.setFilter(filter)
-                if (button != rgb){
-                    rgb.setImageResource(R.drawable.camera)
+                if (button != galeria) {
+                    camImg.setFilter(filter!!)
+                    if (button != rgb) {
+                        rgb.setImageResource(R.drawable.camera)
+                    }
+                    selectedButton?.setImageResource(R.drawable.camera)
+                    button.setImageResource(R.drawable.set_filter)
+                    selectedButton = button
+                } else {
+                    val intent = Intent(this, GaleriaPage::class.java)
+                    startActivity(intent)
                 }
-                selectedButton?.setImageResource(R.drawable.camera)
-                button.setImageResource(R.drawable.set_filter)
-                selectedButton = button
             }
         }
     }
@@ -112,4 +120,5 @@ class CameraPage : AppCompatActivity() {
     private lateinit var hsv: ImageView
     private lateinit var ced: ImageView
     private lateinit var rgb: ImageView
+    private lateinit var galeria: ImageView
 }

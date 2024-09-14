@@ -19,7 +19,7 @@ class GaleriaPage : AppCompatActivity() {
             insets
         }
 
-        val galeria_page_fragment = ImagemGaleria(this)
+        val galeria_page_fragment = ImagemGaleria()
         val fragment_manager = supportFragmentManager
         val fragment_transation = fragment_manager.beginTransaction()
 
