@@ -1,12 +1,14 @@
 package com.aps.imagerecognition.view
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.aps.imagerecognition.R
 import android.widget.Toast
@@ -18,7 +20,7 @@ class ImagemGaleria() : Fragment() {
 
         val fragment_imagem_galeria = inflater.inflate(R.layout.fragment_imagem_galeria, container, false)
 
-        val btnCancel: TextView = fragment_imagem_galeria.findViewById(R.id.btnCancel2)
+        val btnCancel: LinearLayout = fragment_imagem_galeria.findViewById(R.id.btnCancel2)
         val imageViews = listOf<ImageView>(
             fragment_imagem_galeria.findViewById(R.id.imageView1),
             fragment_imagem_galeria.findViewById(R.id.imageView2),

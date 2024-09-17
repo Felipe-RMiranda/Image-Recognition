@@ -22,10 +22,12 @@
         <activity
             android:name=".control.GaleriaPage"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:theme="@style/TransparentRoundedLayout"/>
 
         <activity
             android:name=".view.InfoPage"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".view.CameraPage"

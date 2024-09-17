@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import com.aps.imagerecognition.control.EnumFilters.*
 import com.aps.imagerecognition.R
 import com.aps.imagerecognition.control.StaticProcessing
@@ -26,8 +27,9 @@ class ImgProcess(private val img: ImageView): Fragment() {
         val hel:ImageView = view.findViewById(R.id.hel)
         val hsv:ImageView = view.findViewById(R.id.hsv)
         val ced:ImageView = view.findViewById(R.id.ced)
+        val hsvECed:ImageView = view.findViewById(R.id.hsveced)
         val rgb:ImageView = view.findViewById(R.id.rgb)
-        val close:ImageView = view.findViewById(R.id.close)
+        val close:LinearLayout = view.findViewById(R.id.close)
 
         val imgGaleria = ImagemGaleria()
         val fragment = parentFragmentManager
@@ -39,8 +41,8 @@ class ImgProcess(private val img: ImageView): Fragment() {
             hel to HEL,
             hsv to HSV,
             ced to CED,
-            rgb to RGB,
-            close to null
+            hsvECed to HSVeCED,
+            rgb to RGB
         )
 
         img.setImageDrawable(this.img.drawable)
@@ -49,22 +51,18 @@ class ImgProcess(private val img: ImageView): Fragment() {
 
         filterMap.forEach { (button, filter) ->
 
-            if ( button != close) {
-
-                button.setOnClickListener {
-                    if (button != rgb) {
-                        rgb.setImageResource(R.drawable.camera)
-                    }
-                    selectedButton?.setImageResource(R.drawable.camera)
-                    button.setImageResource(R.drawable.set_filter)
-                    selectedButton = button
-                    staticProcess.setFilter(filter!!)
+            button.setOnClickListener {
+                if (button != rgb) {
+                    rgb.setImageResource(R.drawable.camera)
                 }
-            } else {
-                button.setOnClickListener {
-                    transaction.replace(R.id.main, imgGaleria).commit()
-                }
+                selectedButton?.setImageResource(R.drawable.camera)
+                button.setImageResource(R.drawable.set_filter)
+                selectedButton = button
+                staticProcess.setFilter(filter!!)
             }
+        }
+        close.setOnClickListener {
+            transaction.replace(R.id.main, imgGaleria).commit()
         }
 
 

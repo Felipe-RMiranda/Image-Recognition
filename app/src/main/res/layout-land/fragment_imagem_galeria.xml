@@ -7,39 +7,68 @@
     tools:context=".view.ImagemGaleria"
     android:orientation="vertical"
     android:background="@drawable/dialog_bkg"
-    android:padding="15dp"
-    android:layout_margin="10dp">
+    android:padding="15dp">
 
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="15dp"
-        android:text="Galeria"
-        android:textSize="23dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:paddingEnd="15dp">
+
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Galeria"
+            android:textSize="23dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/btnCancel2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sair"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
+        android:layout_gravity="end"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="15dp"
         android:layout_marginBottom="15dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
+            android:padding="15dp"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ced_1"/>
@@ -48,6 +77,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/ced_3"  />
 
@@ -55,6 +85,7 @@
                 android:id="@+id/imageView5"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/hsv_1" />
 
@@ -62,24 +93,24 @@
                 android:id="@+id/imageView7"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/hsv_3" />
-
-
-
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
+            android:padding="15dp"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/ced_2" />
 
@@ -87,6 +118,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/ced_4" />
 
@@ -95,6 +127,7 @@
                 android:id="@+id/imageView6"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:src="@drawable/hsv_2" />
 
@@ -102,31 +135,10 @@
                 android:id="@+id/imageView8"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:src="@drawable/hsv_4" />
-
+                android:src="@drawable/hsv_3" />
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/btnCancel2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            android:src="@drawable/close" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sair"
-            android:textColor="@color/white" />
-    </LinearLayout>
-    </LinearLayout>
+</LinearLayout>
 

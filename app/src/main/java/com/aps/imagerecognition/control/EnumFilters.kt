@@ -5,6 +5,7 @@ enum class EnumFilters {
     HEL,
     HSV,
     CED,
+    HSVeCED,
     RGB,
     PORTRAIT,
     LANDSCAPE,

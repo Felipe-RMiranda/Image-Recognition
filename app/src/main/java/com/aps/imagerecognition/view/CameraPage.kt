@@ -3,13 +3,17 @@ package com.aps.imagerecognition.view
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ActivityInfo
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Surface
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -21,6 +25,7 @@ import com.aps.imagerecognition.control.GaleriaPage
 class CameraPage : AppCompatActivity() {
 
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,6 +44,10 @@ class CameraPage : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        window.decorView.windowInsetsController?.apply {
+            hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+            systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
         camImg = CamImgReader(this)
 
         val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -54,6 +63,7 @@ class CameraPage : AppCompatActivity() {
         hel = findViewById(R.id.hel)
         hsv = findViewById(R.id.hsv)
         ced = findViewById(R.id.ced)
+        hsvECed = findViewById(R.id.hsveced)
         rgb = findViewById(R.id.rgb)
         galeria = findViewById(R.id.galeria)
 
@@ -62,6 +72,7 @@ class CameraPage : AppCompatActivity() {
             hel to HEL,
             hsv to HSV,
             ced to CED,
+            hsvECed to HSVeCED,
             rgb to RGB,
             galeria to null
         )
@@ -119,6 +130,7 @@ class CameraPage : AppCompatActivity() {
     private lateinit var hel: ImageView
     private lateinit var hsv: ImageView
     private lateinit var ced: ImageView
+    private lateinit var hsvECed: ImageView
     private lateinit var rgb: ImageView
     private lateinit var galeria: ImageView
 }

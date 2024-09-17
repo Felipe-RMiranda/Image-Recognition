@@ -85,6 +85,19 @@
                 android:text="CED"/>
 
             <ImageView
+                android:id="@+id/hsveced"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/camera"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/white"
+                android:text="HSVeCED"/>
+
+            <ImageView
                 android:id="@+id/rgb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
