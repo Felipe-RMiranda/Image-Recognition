@@ -1,0 +1,1 @@
+C:\Users\evell\Downloads\APS - 6 SEMESTRE\Image-Recognition\app\src\main\cpp\CMakeLists.txt

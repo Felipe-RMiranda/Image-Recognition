@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/evell/Downloads/APS - 6 SEMESTRE/Image-Recognition/app/.cxx/Debug/2ht4g4n2/x86",
+  "command": "C:\\Users\\evell\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=i686-none-linux-android24 --sysroot=C:/Users/evell/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dimagerecognition_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\imagerecognition.dir\\imagerecognition.cpp.o -c \"C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\src\\main\\cpp\\imagerecognition.cpp\"",
+  "file": "C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\src\\main\\cpp\\imagerecognition.cpp"
+}
+]

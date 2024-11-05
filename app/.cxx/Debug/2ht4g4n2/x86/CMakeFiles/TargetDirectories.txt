@@ -1,0 +1,3 @@
+C:/Users/evell/Downloads/APS - 6 SEMESTRE/Image-Recognition/app/.cxx/Debug/2ht4g4n2/x86/CMakeFiles/imagerecognition.dir
+C:/Users/evell/Downloads/APS - 6 SEMESTRE/Image-Recognition/app/.cxx/Debug/2ht4g4n2/x86/CMakeFiles/edit_cache.dir
+C:/Users/evell/Downloads/APS - 6 SEMESTRE/Image-Recognition/app/.cxx/Debug/2ht4g4n2/x86/CMakeFiles/rebuild_cache.dir

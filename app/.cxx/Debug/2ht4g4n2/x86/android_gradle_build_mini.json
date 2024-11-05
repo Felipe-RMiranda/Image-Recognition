@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\src\\main\\cpp\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\evell\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\.cxx\\Debug\\2ht4g4n2\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\evell\\AppData\\Local\\Android\\Sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\.cxx\\Debug\\2ht4g4n2\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "imagerecognition::@6890427a1f51a3e7e1df": {
+      "artifactName": "imagerecognition",
+      "abi": "x86",
+      "output": "C:\\Users\\evell\\Downloads\\APS - 6 SEMESTRE\\Image-Recognition\\app\\build\\intermediates\\cxx\\Debug\\2ht4g4n2\\obj\\x86\\libimagerecognition.so",
+      "runtimeFiles": []
+    }
+  }
+}
