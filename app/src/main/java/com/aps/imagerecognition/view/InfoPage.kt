@@ -33,7 +33,7 @@ class InfoPage : AppCompatActivity() {
         val btnStart: Button = findViewById(R.id.btnStart)
         btnStart.setOnClickListener{
             log("Button click")
-            val intent = Intent(this, CameraPage::class.java)
+            val intent = Intent(this, InstruPage::class.java)
             startActivity(intent)
             log("finish InfoPage")
             finish()

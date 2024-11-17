@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.InstruPage">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/imginf" />
+
+
+    <TextView
+        android:id="@+id/descricao"
+        android:layout_width="369dp"
+        android:layout_height="336dp"
+        android:layout_marginBottom="216dp"
+        android:autoLink="none"
+        android:fontFamily="@font/roboto_medium"
+        android:lineSpacingExtra="8dp"
+        android:text="Usado para detectar lixo eletrônico e resíduos nos rios e mares, através da câmera do seu celular usando filtros e IA. \n\nComo Usar: Ative a câmera. Aplique filtros para diferentes tipos de detecção.\n\nBenefícios: Ajuda na preservação ambiental. Fácil de usar e acessível."
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.619" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/text_border"
+        android:fontFamily="@font/league_spartan_bold"
+        android:text="AquaVision IA"
+        android:textColor="#FDFDFD"
+        android:textSize="34sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="122dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_margin="15dp"
+        android:backgroundTint="#4b7380"
+        android:fontFamily="@font/roboto_black"
+        android:text="Iniciar"
+        android:textColor="#FDFDFD"
+        tools:layout_editor_absoluteX="144dp"
+        tools:layout_editor_absoluteY="572dp"
+        tools:ignore="MissingConstraints" />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="33dp"
+        android:layout_height="20dp"
+        android:src="?android:attr/textSelectHandleLeft"
+        app:tint="#4b7380"
+        tools:layout_editor_absoluteX="-7dp"
+        tools:layout_editor_absoluteY="190dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="33dp"
+        android:layout_height="20dp"
+        android:src="?android:attr/textSelectHandleLeft"
+        app:tint="#4b7380"
+        tools:layout_editor_absoluteX="-7dp"
+        tools:layout_editor_absoluteY="442dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="33dp"
+        android:layout_height="20dp"
+        android:src="?android:attr/textSelectHandleLeft"
+        app:tint="#4b7380"
+        tools:layout_editor_absoluteX="-7dp"
+        tools:layout_editor_absoluteY="345dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

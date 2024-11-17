@@ -4,7 +4,9 @@
         <item>@font/anuphan_semibold</item>
         <item>@font/baloo_tamma</item>
         <item>@font/caprasimo</item>
+        <item>@font/league_spartan_bold</item>
         <item>@font/poppins_bold</item>
         <item>@font/roboto_black</item>
+        <item>@font/roboto_medium</item>
     </array>
 </resources>

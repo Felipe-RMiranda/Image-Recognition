@@ -16,29 +16,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/imgback" />
+            android:src="@drawable/logoaqua" />
 
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp"
-            android:fontFamily="@font/roboto_black"
-            android:gravity="center"
-            android:padding="15dp"
-            android:shadowColor="#030357"
-            android:shadowDx="4"
-            android:shadowDy="4"
-            android:shadowRadius="4"
-            android:text="AquaVision IA"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="132dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="30dp"
             android:gravity="center"
@@ -46,14 +29,14 @@
 
             <Button
                 android:id="@+id/btnStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="122dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_margin="15dp"
-                android:backgroundTint="#030357"
-            android:fontFamily="@font/roboto_black"
-            android:text="Iniciar"
-            android:textColor="#FDFDFD" />
+                android:backgroundTint="#4b7380"
+                android:fontFamily="@font/roboto_black"
+                android:text="Entrar"
+                android:textColor="#FDFDFD" />
         </LinearLayout>
 
     </FrameLayout>
